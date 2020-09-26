@@ -1,4 +1,4 @@
-RAWS=$(find . -name "*.nef")
+RAWS=$(find "$1" -name "*.nef")
 RAWS=$(echo "${RAWS}")
 # echo RAWS:"$RAWS"
 
@@ -9,4 +9,5 @@ raw=$(echo {} ) ;
 tif=$(echo $raw | sed -s "s#.nef#.tif#" | sed -s "s#/raw/#/tif/#") ;
 test -f "$tif" || darktable-cli "$raw" "$tif" --core --conf plugins/imageio/format/tiff/bpp=16 --configdir temp/{%}
 ' ::: "${RAWS}"
+rm -rf temp
 
